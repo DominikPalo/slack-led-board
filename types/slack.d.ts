@@ -179,4 +179,16 @@ declare namespace RTMEvents {
         mention_count_display: number;
         event_ts: string;
     }
+
+    interface DndUpdatedUser {
+        type: "dnd_updated_user";
+        user: string;
+        dnd_status: DndStatus;
+    }
+
+    interface DndStatus {
+        dnd_enabled: boolean;
+        next_dnd_start_ts: string;
+        next_dnd_end_ts: string;
+    }
 }

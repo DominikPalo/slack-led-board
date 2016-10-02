@@ -27,10 +27,10 @@ export default class UserPixel extends SlackPixel {
         }
 
         if (this.isOnline && !this.isDnd) {
-            return [0,10,0];
+            return [0,12,0];
         }
 
-        if (this.isOnline && !this.isDnd) {
+        if (this.isOnline && this.isDnd) {
             return [5,5,0]
         }
 

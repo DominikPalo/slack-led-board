@@ -1,21 +1,28 @@
+import {isFunction} from "util";
 const pixel = require("node-pixel");
 
 export default class Effects {
     private timer: NodeJS.Timer;
 
-    constructor(private strip: any) {
+    constructor(private strip: any, private done: Function) {
 
     }
 
-    stop(done: Function) {
+    public execute(effect: string) {
+        if (typeof this[effect] === "function") {
+            this[effect]();
+        }
+    }
+
+    private stop() {
         clearInterval(this.timer);
         this.strip.color([0, 0, 0]);
         this.strip.show();
 
-        setTimeout(done, 300); //Wait 300ms
+        setTimeout(this.done, 300); //Wait 300ms
     }
 
-    chase() {
+    private chase() {
         this.strip.color([0, 0, 0]);
         this.strip.pixel(0).color("red");
         this.strip.pixel(20).color("green");
@@ -27,7 +34,7 @@ export default class Effects {
         }, 16);
     }
 
-    strobo() {
+    private strobo() {
         this.strip.color([0, 0, 0]);
 
         let color = "red";
@@ -48,7 +55,7 @@ export default class Effects {
         }, 50);
     }
 
-    dynamicRainbow(delay: number) {
+    private dynamicRainbow(delay: number) {
         var showColor;
         var cwi = 0; // colour wheel index (current position on colour wheel)
         this.timer = setInterval(() => {
