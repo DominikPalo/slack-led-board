@@ -1,4 +1,3 @@
-import {getPixelNumber} from "./Helpers";
 import {EventEmitter} from "events";
 
 abstract class SlackPixel extends EventEmitter {

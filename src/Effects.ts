@@ -52,8 +52,6 @@ export default class Effects {
         var showColor;
         var cwi = 0; // colour wheel index (current position on colour wheel)
         this.timer = setInterval(() => {
-            if (this.stopped) return;
-
             if (++cwi > 255) {
                 cwi = 0;
             }

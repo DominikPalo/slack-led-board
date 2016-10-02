@@ -87,8 +87,8 @@ export default class PixelsController {
             }
         });
 
-        rtmClient.on(RTM_EVENTS.USER_TYPING,(message) => {
-            console.log("UserIM typing", message);
+        rtmClient.on(RTM_EVENTS.USER_TYPING,(event) => {
+            console.log("A channel member is typing a message", event);
 
 
         });
