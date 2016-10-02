@@ -14,7 +14,10 @@ export default class PixelFactory {
 
         for (let i = 0; i < pixelsConfig.length; i++) {
             for (let j = 0; j < pixelsConfig[i].length; j++) {
-                this.create(i, j, pixelsConfig[i][j]);
+                const identifier = pixelsConfig[i][j];
+                if (identifier) {
+                    this.create(i, j, identifier);
+                }
             }
         }
     }
