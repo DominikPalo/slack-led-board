@@ -96,11 +96,11 @@ export default class PixelsController {
         rtmClient.on(RTM_EVENTS.CHANNEL_MARKED,(event: RTMEvents.ChannelMarked) => {
             console.log("Your channel read marker was updated", event);
 
-            const groupPixel = this.pixels.groups.find(pixel => pixel.id === event.channel);
-            if (groupPixel) {
-                groupPixel.hasUnreadMessages = event.unread_count_display > 0;
-                groupPixel.hasUnreadMention = event.mention_count_display > 0;
-                this.handlePixelColorChanged(groupPixel); //TODO: use emitter
+            const channelPixel = this.pixels.channels.find(pixel => pixel.id === event.channel);
+            if (channelPixel) {
+                channelPixel.hasUnreadMessages = event.unread_count_display > 0;
+                channelPixel.hasUnreadMention = event.mention_count_display > 0;
+                this.handlePixelColorChanged(channelPixel); //TODO: use emitter
                 return;
             }
         });
