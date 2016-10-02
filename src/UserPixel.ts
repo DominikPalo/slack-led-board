@@ -12,7 +12,7 @@ export default class UserPixel extends SlackPixel {
         this.directChannelId = directChannel.id;
 
         this.isOnline = user.presence === "active";
-        this.hasUnreadMessages = directChannel.unread_count > 0;
+        this.hasUnreadMessages = directChannel.unread_count_display > 0;
         //TODO
         //this.isDnd =
     }

@@ -68,16 +68,16 @@ export default class PixelsController {
             }
 
             const groupPixel = this.pixels.groups.find(pixel => pixel.id === event.channel);
-            if (channelPixel) {
-                channelPixel.hasUnreadMessages = true;
-                this.handlePixelColorChanged(channelPixel); //TODO: use emitter
+            if (groupPixel) {
+                groupPixel.hasUnreadMessages = true;
+                this.handlePixelColorChanged(groupPixel); //TODO: use emitter
                 return;
             }
 
             if (event.user == this.myId && event.channel === this.myDirectChannelId) {
                 switch (event.text) {
-                    case ".nahanacka":
-                        this.effectsController.nahanacka();
+                    case ".chase":
+                        this.effectsController.chase();
                         break;
                     case ".stop":
                         this.effectsController.stop(() => {
@@ -93,12 +93,37 @@ export default class PixelsController {
 
         });
 
-        rtmClient.on(RTM_EVENTS.CHANNEL_MARKED,(event) => {
+        rtmClient.on(RTM_EVENTS.CHANNEL_MARKED,(event: RTMEvents.ChannelMarked) => {
             console.log("Your channel read marker was updated", event);
+
+            const channelPixel = this.pixels.channels.find(pixel => pixel.id === event.channel);
+            if (channelPixel) {
+                channelPixel.hasUnreadMessages = event.unread_count_display > 0;
+                channelPixel.hasUnreadMention = event.mention_count_display > 0;
+                this.handlePixelColorChanged(channelPixel); //TODO: use emitter
+                return;
+            }
+
+            const groupPixel = this.pixels.groups.find(pixel => pixel.id === event.channel);
+            if (groupPixel) {
+                channelPixel.hasUnreadMessages = event.unread_count_display > 0;
+                channelPixel.hasUnreadMention = event.mention_count_display > 0;
+                this.handlePixelColorChanged(groupPixel); //TODO: use emitter
+                return;
+            }
         });
 
-        rtmClient.on(RTM_EVENTS.IM_MARKED, (event) => {
-           console.log("A direct message read marker was updated", event);
+        rtmClient.on(RTM_EVENTS.IM_MARKED, (event: RTMEvents.ImMarked) => {
+           console.log("A direct message read marker was updated", event)
+
+
+            const userPixel = this.pixels.users.find(pixel => pixel.directChannelId === event.channel);
+            if (userPixel) {
+                userPixel.hasUnreadMessages = event.unread_count_display > 0;
+                userPixel.hasUnreadMention = event.mention_count_display > 0;
+                this.handlePixelColorChanged(userPixel); //TODO: use emitter
+                return;
+            }
         });
 
         rtmClient.on(RTM_EVENTS.PRESENCE_CHANGE, (change: RTMEvents.PresenceChange) => {

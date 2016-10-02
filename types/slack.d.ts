@@ -153,4 +153,17 @@ declare namespace RTMEvents {
         mention_count_display: number;
         event_ts: string;
     }
+
+    interface ChannelMarked {
+        type: "channel_marked",
+        channel: string;
+        ts: string;
+        unread_count: number;
+        unread_count_display: number;
+        num_mentions: number;
+        num_mentions_display: number;
+        mention_count: number;
+        mention_count_display: number;
+        event_ts: string;
+    }
 }

@@ -2,12 +2,10 @@ import SlackPixel from "./SlackPixel";
 import {SlackEntityType} from "./SlackPixel";
 
 export default class GroupPixel extends SlackPixel {
-    hasUnreadMention: boolean;
-
     constructor(pixelNumber: number, group: Slack.Group) {
         super(pixelNumber, group.id, group.name, SlackEntityType.Group);
 
-        this.hasUnreadMessages = group.unread_count > 0;
+        this.hasUnreadMessages = group.unread_count_display > 0;
     }
 
     get color(): string | number[] {

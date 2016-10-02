@@ -3,6 +3,7 @@ import {EventEmitter} from "events";
 
 abstract class SlackPixel extends EventEmitter {
     hasUnreadMessages: boolean;
+    hasUnreadMention: boolean;
 
     constructor(public pixelNumber: number, public id: string, public name: string, public kind: SlackEntityType) {
         super();
