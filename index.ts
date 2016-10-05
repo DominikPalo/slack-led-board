@@ -11,13 +11,13 @@ let slackData: Slack.Data = null;
 let pixelsController: PixelsController;
 let strip = null;
 
-const board = new firmata.Board("COM4", initStrip);
-const rtmClient = new RtmClient(config.slackApiToken, {logLevel: 'error'});
+const board = new firmata.Board(config.board.port, initStrip);
+const rtmClient = new RtmClient(config.slack.apiToken, {logLevel: 'error'});
 
 function initStrip() {
     strip = new pixel.Strip({
-        pin: 6,
-        length: 60,
+        pin: config.board.pin,
+        length: config.board.rows * config.board.columns,
         firmata: board,
         controller: "FIRMATA",
     });

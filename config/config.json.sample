@@ -1,3 +1,11 @@
 {
-    "slackApiToken": "xoxp-123-456-789"
+  "board": {
+    "port": "COM4",
+    "pin": 6,
+    "rows": 12,
+    "columns": 5
+  },
+  "slack": {
+    "apiToken": "xoxp-123-456-789"
+  }
 }
