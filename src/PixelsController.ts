@@ -55,6 +55,10 @@ export default class PixelsController {
 
         rtmClient.on(RTM_EVENTS.MESSAGE,(event: RTMEvents.Message) => {
             console.log("A message was sent to a channel", event);
+            
+            if (event.user == this.myId) {
+                return;
+            }
 
             const userPixel = this.findUserPixelByChannel(event.channel);
             if (userPixel) {
