@@ -17,6 +17,6 @@ export default class ChannelPixel extends SlackPixel {
              return [0,0,20];
         }
 
-        return [3, 3, 3];
+        return [5, 5, 5];
     }
 }

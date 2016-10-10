@@ -27,14 +27,14 @@ export default class UserPixel extends SlackPixel {
         }
 
         if (this.isOnline && !this.isDnd) {
-            return [0,12,0];
+            return [0,15,0];
         }
 
         if (this.isOnline && this.isDnd) {
-            return [5,5,0]
+            return [20,13,0]
         }
 
-        return [3, 3, 3];
+        return [5, 5, 5];
     }
 
     get isBinking(): boolean {
