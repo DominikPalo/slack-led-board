@@ -56,7 +56,11 @@ export default class PixelsController {
         rtmClient.on(RTM_EVENTS.MESSAGE,(event: RTMEvents.Message) => {
             console.log("A message was sent to a channel", event);
             
-            if (event.user == this.myId) {
+            if (event.user === this.myId) {
+                if (event.channel === this.myDirectChannelId && event.text.startsWith(".")) {
+                    this.effectsController.execute(event.text.substring(1));
+                }
+
                 return;
             }
 
@@ -79,13 +83,6 @@ export default class PixelsController {
                 groupPixel.hasUnreadMessages = true;
                 this.handlePixelColorChanged(groupPixel); //TODO: use emitter
                 return;
-            }
-
-            if (event.user == this.myId
-                && event.channel === this.myDirectChannelId
-                && event.text.startsWith(".")
-            ) {
-                this.effectsController.execute(event.text.substring(1));
             }
         });
 
